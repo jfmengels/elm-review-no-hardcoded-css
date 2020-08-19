@@ -22,20 +22,30 @@ import Set exposing (Set)
 
 ## Fail
 
+    import Css
+
     a =
-        "REPLACEME example to replace"
+        div
+            [ css [ Css.width (Css.px 8) ]
+            ]
+            [ text "Hello" ]
 
 
 ## Success
 
+    import Css
+    import DesignSystem
+
     a =
-        "REPLACEME example to replace"
+        div
+            [ css [ Css.width DesignSystem.medium ]
+            ]
+            [ text "Hello" ]
 
 
 ## When (not) to enable this rule
 
-This rule is useful when REPLACEME.
-This rule is not useful when REPLACEME.
+This rule is useful when your project has modules that sets standard sizes for all elements, in order to respect a design system.
 
 
 ## Try it out
@@ -75,8 +85,8 @@ expressionVisitor node context =
                     && (Scope.moduleNameForValue context.scope name moduleName == [ "Css" ])
             then
                 ( [ Rule.error
-                        { message = "REPLACEME"
-                        , details = [ "REPLACEME" ]
+                        { message = "Do not hardcode sizes using this function"
+                        , details = [ "Your project has a specific module that sets the design standards, and you should use that." ]
                         }
                         (Node.range node)
                   ]

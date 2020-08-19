@@ -7,12 +7,12 @@ import Test exposing (Test, describe, test)
 
 message : String
 message =
-    "REPLACEME"
+    "Do not hardcode sizes using this function"
 
 
 details : List String
 details =
-    [ "REPLACEME" ]
+    [ "Your project has a specific module that sets the design standards, and you should use that." ]
 
 
 all : Test
