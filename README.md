@@ -1,11 +1,11 @@
 # elm-review-no-hardcoded-css
 
-Provides [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) rules to REPLACEME.
+Provides [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) rules to prevents hardcoding CSS values.
 
 
 ## Provided rules
 
-- [`NoHardcoded.Sizes`](https://package.elm-lang.org/packages/jfmengels/elm-review-no-hardcoded-css/1.0.0/NoHardcoded-Sizes) - Reports REPLACEME.
+- [`NoHardcoded.Sizes`](https://package.elm-lang.org/packages/jfmengels/elm-review-no-hardcoded-css/1.0.0/NoHardcoded-Sizes) - Reports hardcoded sizes.
 
 
 ## Configuration
