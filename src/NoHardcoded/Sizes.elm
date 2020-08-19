@@ -9,6 +9,7 @@ module NoHardcoded.Sizes exposing (rule)
 import Elm.Syntax.Expression as Expression exposing (Expression)
 import Elm.Syntax.Node as Node exposing (Node)
 import Review.Rule as Rule exposing (Error, Rule)
+import Scope
 import Set exposing (Set)
 
 
@@ -48,28 +49,45 @@ elm - review --template jfmengels/elm-review-no-hardcoded-css/example --rules No
 -}
 rule : Rule
 rule =
-    Rule.newModuleRuleSchema "NoHardcoded.Sizes" ()
-        |> Rule.withSimpleExpressionVisitor expressionVisitor
+    Rule.newModuleRuleSchema "NoHardcoded.Sizes" initialContext
+        |> Scope.addModuleVisitors
+        |> Rule.withExpressionEnterVisitor expressionVisitor
         |> Rule.fromModuleRuleSchema
 
 
-expressionVisitor : Node Expression -> List (Error {})
-expressionVisitor node =
+type alias Context =
+    { scope : Scope.ModuleContext
+    }
+
+
+initialContext : Context
+initialContext =
+    { scope = Scope.initialModuleContext
+    }
+
+
+expressionVisitor : Node Expression -> Context -> ( List (Error {}), Context )
+expressionVisitor node context =
     case Node.value node of
-        Expression.FunctionOrValue [ "Css" ] name ->
-            if Set.member name sizeFunctions then
-                [ Rule.error
-                    { message = "REPLACEME"
-                    , details = [ "REPLACEME" ]
-                    }
-                    (Node.range node)
-                ]
+        Expression.FunctionOrValue moduleName name ->
+            if
+                Set.member name sizeFunctions
+                    && (Scope.moduleNameForValue context.scope name moduleName == [ "Css" ])
+            then
+                ( [ Rule.error
+                        { message = "REPLACEME"
+                        , details = [ "REPLACEME" ]
+                        }
+                        (Node.range node)
+                  ]
+                , context
+                )
 
             else
-                []
+                ( [], context )
 
         _ ->
-            []
+            ( [], context )
 
 
 sizeFunctions : Set String

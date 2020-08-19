@@ -39,6 +39,20 @@ a = px 1
 """
                     |> Review.Test.run rule
                     |> Review.Test.expectNoErrors
+        , test "should report an error even when the module is aliased" <|
+            \() ->
+                """module A exposing (..)
+import Css as C
+a = C.px 1
+"""
+                    |> Review.Test.run rule
+                    |> Review.Test.expectErrors
+                        [ Review.Test.error
+                            { message = message
+                            , details = details
+                            , under = "C.px"
+                            }
+                        ]
         ]
 
 
