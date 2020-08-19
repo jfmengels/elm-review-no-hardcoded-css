@@ -12,10 +12,12 @@ when inside the directory containing this file.
 -}
 
 import NoHardcoded.Sizes
+import NoStyle
 import Review.Rule exposing (Rule)
 
 
 config : List Rule
 config =
     [ NoHardcoded.Sizes.rule
+    , NoStyle.rule
     ]

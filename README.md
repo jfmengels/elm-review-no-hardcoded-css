@@ -5,6 +5,7 @@ Provides [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-revi
 
 ## Provided rules
 
+- [`NoStyle`](https://package.elm-lang.org/packages/jfmengels/elm-review-no-hardcoded-css/1.0.0/NoStyle) - Reports REPLACEME.
 - [`NoHardcoded.Sizes`](https://package.elm-lang.org/packages/jfmengels/elm-review-no-hardcoded-css/1.0.0/NoHardcoded-Sizes) - Reports hardcoded sizes.
 
 
@@ -14,11 +15,13 @@ Provides [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-revi
 module ReviewConfig exposing (config)
 
 import NoHardcoded.Sizes
+import NoStyle
 import Review.Rule exposing (Rule)
 
 config : List Rule
 config =
     [ NoHardcoded.Sizes.rule
+    , NoStyle.rule
     ]
 ```
 
