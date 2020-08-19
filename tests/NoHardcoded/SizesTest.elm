@@ -32,6 +32,13 @@ all =
         , testForSize "cm"
         , testForSize "inches"
         , testForSize "pc"
+        , test "should not report an error when not using size functions" <|
+            \() ->
+                """module A exposing (..)
+a = px 1
+"""
+                    |> Review.Test.run rule
+                    |> Review.Test.expectNoErrors
         ]
 
 
